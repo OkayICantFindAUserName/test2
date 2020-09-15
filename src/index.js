@@ -1,17 +1,44 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+
+var email;
+var passwort;
+
+function handleClick() {
+    fetch("http://localhost:3001",
+        {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(
+                {Email: email, passwort: passwort}
+            )
+        }
+    )
+}
+
+function handleEmailChange(event) {
+    email = event.target.value;
+}
+
+function handlePasswordChange(event) {
+    passwort = event.target.value;
+
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <div>
+            Register
+            <div>
+                <input placeholder={"Email"} onChange={handleEmailChange}></input>
+                <input type={"password"} onChange={handlePasswordChange} placeholder={"passwort"}></input>
+                <div>
+                    <button onClick={handleClick}>Registers</button>
+                </div>
+            </div>
+        </div>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
